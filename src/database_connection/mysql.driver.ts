@@ -10,7 +10,7 @@ import { Doctor } from 'src/doctor/entities/doctor.entity';
 			host: '127.0.0.1',
 			port: 3306,
 			username: 'kevincyndaquil',
-			password: 'qw6xdg7sB!',
+			password: '*',
 			database: 'pruebas',
 			autoLoadEntities: true,
 			synchronize: true

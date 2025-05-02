@@ -3,6 +3,6 @@
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"files.eol": "\n",
 	"editor.codeActionsOnSave": {
-		"source.fixAll.ts": true
+		"source.fixAll.ts": "explicit"
 	}
 }
