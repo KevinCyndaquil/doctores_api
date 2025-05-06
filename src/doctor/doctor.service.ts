@@ -8,7 +8,7 @@ import { UpdateDoctorDTO } from './dto/update-doctor.dto';
 @Injectable()
 export class DoctorService {
 	constructor(
-		@InjectRepository(Doctor)
+		@InjectRepository(Doctor, 'empleados')
 		private readonly repository: Repository<Doctor>
 	) {}
 

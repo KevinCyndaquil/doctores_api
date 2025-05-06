@@ -22,4 +22,7 @@ export class CreatePatientDTO {
 		{ message: 'CURP inválida' }
 	)
 	curp: string;
+
+	@IsString()
+	state: string;
 }
