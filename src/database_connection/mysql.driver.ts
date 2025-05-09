@@ -2,6 +2,8 @@ import { Module, Global } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Doctor } from 'src/doctor/entities/doctor.entity';
 import { Patient } from 'src/patient/entities/patient.entity';
+import { Employee } from 'src/employee/entities/employee.entity';
+import { Deparment } from 'src/deparment/entities/deparment.entity';
 
 @Global()
 @Module({
@@ -12,9 +14,9 @@ import { Patient } from 'src/patient/entities/patient.entity';
 			host: '127.0.0.1',
 			port: 3306,
 			username: 'kevincyndaquil',
-			password: '*',
+			password: 'qw6xdg7sB!',
 			database: 'empleados',
-			entities: [Doctor],
+			entities: [Employee, Deparment],
 			autoLoadEntities: false,
 			synchronize: true
 		}),
@@ -24,9 +26,9 @@ import { Patient } from 'src/patient/entities/patient.entity';
 			host: '127.0.0.1',
 			port: 3306,
 			username: 'kevincyndaquil',
-			password: '*',
+			password: 'qw6xdg7sB!',
 			database: 'clientes',
-			entities: [Patient],
+			entities: [],
 			autoLoadEntities: false,
 			synchronize: true
 		})

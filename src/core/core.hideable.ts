@@ -1,0 +1,3 @@
+interface Hideable {
+	hidden: boolean;
+}
