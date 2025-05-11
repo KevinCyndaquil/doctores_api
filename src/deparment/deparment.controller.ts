@@ -2,7 +2,7 @@ import { CoreController } from 'src/core/core.controller';
 import { Deparment } from './entities/deparment.entity';
 import { CreateDeparmentDTO } from './dto/create-deparment.dto';
 import { UpdateDeparmentDTO } from './dto/update-deparment.dto';
-import { Controller, Get, Inject, Param, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Inject, Param, Put } from '@nestjs/common';
 import { DeparmentService } from './deparment.service';
 import { SingleDeparmentDTO } from './dto/single-deparment.dto';
 
@@ -38,5 +38,13 @@ export class DeparmentController extends CoreController<
 		@Param('child_id') child_id: number
 	): Promise<boolean> {
 		return await this.service.assignSubDeparment(parent_id, child_id);
+	}
+
+	@Delete('deassign/sub/:parent_id/:child_id')
+	async deassignSubDeparment(
+		@Param('parent_id') parent_id: number,
+		@Param('child_id') child_id: number
+	): Promise<Deparment> {
+		return await this.service.deassignSubDeparment(parent_id, child_id);
 	}
 }

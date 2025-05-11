@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer';
 import { Employee } from 'src/employee/entities/employee.entity';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('deparments')
 export class Deparment implements Hideable {
@@ -17,7 +17,8 @@ export class Deparment implements Hideable {
 		nullable: true,
 		onDelete: 'SET NULL'
 	})
-	parent: Deparment;
+	@JoinColumn()
+	parent: Deparment | null;
 
 	@Column({ default: false })
 	@Exclude()

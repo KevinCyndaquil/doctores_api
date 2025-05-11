@@ -13,15 +13,21 @@ export class CoreService<
 		return await this.repository.save(t);
 	}
 
-	async findAll(): Promise<T[]> {
-		return await this.repository.find({ where: { hidden: false } as FindOptionsWhere<T> });
+	async findAll(relations: string[] = []): Promise<T[]> {
+		return await this.repository.find({
+			where: { hidden: false } as FindOptionsWhere<T>,
+			relations: relations
+		});
 	}
 
-	async findOne(id: number): Promise<T> {
-		const found = await this.repository.findOneBy({
-			id: id as any,
-			hidden: false
-		} as FindOptionsWhere<T>);
+	async findOne(id: number, relations: string[] = []): Promise<T> {
+		const found = await this.repository.findOne({
+			where: {
+				id: id as any,
+				hidden: false
+			} as FindOptionsWhere<T>,
+			relations: relations
+		});
 
 		if (!found) throw new NotFoundException(`No se encontro un registro con el id ${id}`);
 		return found;

@@ -71,11 +71,31 @@ export class DeparmentService extends CoreService<
 		return (result.affected ?? 0) > 0;
 	}
 
+	async deassignSubDeparment(parent_id: number, child_id: number): Promise<Deparment> {
+		const parent = await this.findOne(parent_id);
+		var child = await this.findOne(child_id, ['parent']);
+
+		if (child.parent?.id !== parent_id)
+			throw new BadRequestException(
+				`Deparment ${child.name} is not assigned to deparment ${parent.name}`
+			);
+
+		child.parent = null;
+		return await this.repository.save(child);
+	}
+
 	override async softDelete(id: number): Promise<Deparment> {
+		const childrenCount = await this.repository.count({
+			where: { parent: { id: id }, hidden: false }
+		});
 		const employeesInDeparment = await this.employeeService.countAllAssignedToDeparment(id);
 
 		if (employeesInDeparment > 0)
 			throw new BadRequestException(`There is employees in deparment with id ${id}`);
+		if (childrenCount > 0)
+			throw new BadRequestException(
+				`There is sub deparments assigned to this deparment with id ${id}`
+			);
 		return await super.softDelete(id);
 	}
 }
