@@ -37,12 +37,14 @@ export class DeparmentService extends CoreService<
 
 	async findRoot(): Promise<SingleDeparmentDTO[]> {
 		return await this.repository
-			.createQueryBuilder('child')
-			.leftJoin('deparments', 'parent', 'child.parentId = parent.id')
+			.createQueryBuilder('parent')
+			.leftJoin('deparments', 'child', 'parent.id = child.parentId')
 			.select('parent.id', 'id')
 			.addSelect('parent.name', 'name')
-			.addSelect('COUNT(parent.id)', 'childrenCount')
-			.where('parent.id IS NOT null AND parent.parentId IS null AND parent.hidden = false')
+			.addSelect('COUNT(child.id)', 'childCount')
+			.where('parent.parentId IS null')
+			.andWhere('parent.hidden = false')
+			.andWhere('(child.hidden = false OR child.hidden IS null)')
 			.groupBy('parent.id')
 			.addGroupBy('parent.name')
 			.getRawMany();

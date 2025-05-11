@@ -16,6 +16,12 @@
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitAny": false,
 		"strictBindCallApply": false,
-		"noFallthroughCasesInSwitch": false
+		"noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@core/*": ["src/core/*"],
+			"@db_conn/*": ["src/database_connection/*"],
+			"@deparment/*": ["src/deparment/*"],
+			"@employee/*": ["src/employee/*"]
+		}
 	}
 }

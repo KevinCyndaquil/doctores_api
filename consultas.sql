@@ -20,6 +20,20 @@ group by
 	s.id,
 	s.name;
 
+select 
+	parent.id,
+	parent.name,
+	count(child.id) as childrenCount
+from deparments parent
+left join deparments child
+	on parent.id = child.parentId
+where parent.parentId is null 
+	and parent.hidden = false 
+	and (child.hidden = false or child.hidden is null)
+group by 
+	parent.id, 
+	parent.name;
+
 select *
 from deparments
 where parentId = 1;
