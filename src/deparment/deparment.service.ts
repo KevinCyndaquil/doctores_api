@@ -36,31 +36,41 @@ export class DeparmentService extends CoreService<
 	}
 
 	async findRoot(): Promise<SingleDeparmentDTO[]> {
-		return await this.repository
-			.createQueryBuilder('parent')
-			.leftJoin('deparments', 'child', 'parent.id = child.parentId')
-			.select('parent.id', 'id')
-			.addSelect('parent.name', 'name')
-			.addSelect('COUNT(child.id)', 'childrenCount')
-			.where('parent.parentId IS null')
-			.andWhere('parent.hidden = false')
-			.andWhere('(child.hidden = false OR child.hidden IS null)')
-			.groupBy('parent.id')
-			.addGroupBy('parent.name')
-			.getRawMany();
+		return (
+			await this.repository
+				.createQueryBuilder('parent')
+				.leftJoin('deparments', 'child', 'parent.id = child.parentId')
+				.select('parent.id', 'id')
+				.addSelect('parent.name', 'name')
+				.addSelect('COUNT(child.id)', 'childrenCount')
+				.where('parent.parentId IS null')
+				.andWhere('parent.hidden = false')
+				.andWhere('(child.hidden = false OR child.hidden IS null)')
+				.groupBy('parent.id')
+				.addGroupBy('parent.name')
+				.getRawMany()
+		).map((row) => ({
+			...row,
+			childrenCount: parseInt(row.childrenCount, 10)
+		}));
 	}
 
 	async findChildren(parent_id: number): Promise<SingleDeparmentDTO[]> {
-		return await this.repository
-			.createQueryBuilder('parent')
-			.leftJoin('deparments', 'child', 'child.parentId = parent.id')
-			.select('parent.id', 'id')
-			.addSelect('parent.name', 'name')
-			.addSelect('COUNT(child.id)', 'childrenCount')
-			.where('parent.parentId = :parent_id AND parent.hidden = false', { parent_id: parent_id })
-			.groupBy('parent.id')
-			.addGroupBy('parent.name')
-			.getRawMany();
+		return (
+			await this.repository
+				.createQueryBuilder('parent')
+				.leftJoin('deparments', 'child', 'child.parentId = parent.id')
+				.select('parent.id', 'id')
+				.addSelect('parent.name', 'name')
+				.addSelect('COUNT(child.id)', 'childrenCount')
+				.where('parent.parentId = :parent_id AND parent.hidden = false', { parent_id: parent_id })
+				.groupBy('parent.id')
+				.addGroupBy('parent.name')
+				.getRawMany()
+		).map((row) => ({
+			...row,
+			childrenCount: parseInt(row.childrenCount, 10)
+		}));
 	}
 
 	async assignSubDeparment(parent_id: number, child_id: number): Promise<boolean> {
