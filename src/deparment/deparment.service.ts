@@ -41,7 +41,7 @@ export class DeparmentService extends CoreService<
 			.leftJoin('deparments', 'child', 'parent.id = child.parentId')
 			.select('parent.id', 'id')
 			.addSelect('parent.name', 'name')
-			.addSelect('COUNT(child.id)', 'childCount')
+			.addSelect('COUNT(child.id)', 'childrenCount')
 			.where('parent.parentId IS null')
 			.andWhere('parent.hidden = false')
 			.andWhere('(child.hidden = false OR child.hidden IS null)')
