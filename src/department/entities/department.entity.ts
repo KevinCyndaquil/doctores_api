@@ -2,8 +2,8 @@ import { Exclude } from 'class-transformer';
 import { Employee } from 'src/employee/entities/employee.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('deparments')
-export class Deparment implements Hideable {
+@Entity('departments')
+export class Department implements Hideable {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -13,12 +13,12 @@ export class Deparment implements Hideable {
 	@OneToMany(() => Employee, (e) => e.deparment)
 	employees: Employee[];
 
-	@ManyToOne(() => Deparment, {
+	@ManyToOne(() => Department, {
 		nullable: true,
 		onDelete: 'SET NULL'
 	})
 	@JoinColumn()
-	parent: Deparment | null;
+	parent: Department | null;
 
 	@Column({ default: false })
 	@Exclude()

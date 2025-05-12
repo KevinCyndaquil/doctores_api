@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-export class SingleDeparmentDTO {
+export class SingleDepartmentDTO {
 	@Expose()
 	id: number;
 

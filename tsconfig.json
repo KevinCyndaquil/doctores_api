@@ -19,8 +19,8 @@
 		"noFallthroughCasesInSwitch": false,
 		"paths": {
 			"@core/*": ["src/core/*"],
-			"@db_conn/*": ["src/database_connection/*"],
-			"@deparment/*": ["src/deparment/*"],
+			"@sql/*": ["src/database/*"],
+			"@department/*": ["src/department/*"],
 			"@employee/*": ["src/employee/*"]
 		}
 	}

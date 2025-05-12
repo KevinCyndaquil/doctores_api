@@ -11,15 +11,15 @@ import { CreateEmployeeDTO } from './dto/create-employee.dto';
 import { Employee } from './entities/employee.entity';
 import { CoreService } from 'src/core/core.service';
 import { UpdateEmployeeDTO } from './dto/update-employee.dto';
-import { DeparmentService } from 'src/deparment/deparment.service';
+import { DepartmentService } from '@department/department.service';
 
 @Injectable()
 export class EmployeeService extends CoreService<Employee, CreateEmployeeDTO, UpdateEmployeeDTO> {
 	constructor(
 		@InjectRepository(Employee, 'empleados')
 		repository: Repository<Employee>,
-		@Inject(forwardRef(() => DeparmentService))
-		private readonly deparmentService: DeparmentService
+		@Inject(forwardRef(() => DepartmentService))
+		private readonly deparmentService: DepartmentService
 	) {
 		super(repository);
 	}

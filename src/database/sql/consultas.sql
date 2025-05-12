@@ -21,7 +21,7 @@ group by
 	s.name;
 
 select 
-	parent.id,
+	parent.id::number,
 	parent.name,
 	count(child.id) as childrenCount
 from deparments parent
